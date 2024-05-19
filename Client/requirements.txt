@@ -1,0 +1,8 @@
+axios
+socket.io-client
+
+-D tailwindcss
+postcss
+autoprefixer
+
+npx tailwindcss init -p
