@@ -22,13 +22,13 @@ function App() {
                         className="p-2 border rounded mr-2"
                         value={currentUser}
                         onChange={(e) => setCurrentUser(e.target.value)}
-                        placeholder="Your username"
+                        placeholder="Your Username"
                     />
                     <input
                         className="p-2 border rounded mr-2"
                         value={recipient}
                         onChange={(e) => setRecipient(e.target.value)}
-                        placeholder="Recipient's username"
+                        placeholder="Recipient's Username"
                     />
                     <button className="bg-blue-500 text-white p-2 rounded" onClick={startChat}>
                         Start Chat

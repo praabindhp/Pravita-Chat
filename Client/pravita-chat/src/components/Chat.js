@@ -45,6 +45,15 @@ const Chat = ({ currentUser, recipient }) => {
         }
     };
 
+    const clearMessages = async () => {
+        try {
+            await axios.delete(`http://localhost:5000/api/messages/${currentUser}/${recipient}`);
+            setMessages([]);
+        } catch (error) {
+            console.error("Error clearing messages:", error);
+        }
+    };
+
     return (
         <div className="flex flex-col h-full w-full max-w-md mx-auto">
             <div className="flex-grow p-4 overflow-auto">
@@ -53,6 +62,7 @@ const Chat = ({ currentUser, recipient }) => {
                         <span className={`inline-block p-2 rounded ${msg.sender === currentUser ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}>
                             {msg.content}
                         </span>
+                        <div className="text-xs text-gray-500">{msg.hash}</div>
                     </div>
                 ))}
             </div>
@@ -64,6 +74,7 @@ const Chat = ({ currentUser, recipient }) => {
                     placeholder="Type a message"
                 />
                 <button className="mt-2 w-full bg-blue-500 text-white p-2 rounded" onClick={sendMessage}>Send</button>
+                <button className="mt-2 w-full bg-red-500 text-white p-2 rounded" onClick={clearMessages}>Clear Chat</button>
             </div>
         </div>
     );

@@ -3,3 +3,4 @@ mongoose
 socket.io
 cors
 dotenv
+crypto-js
