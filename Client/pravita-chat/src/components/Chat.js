@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 
-const socket = io('http://localhost:5000');
+const APP_URL_BE = 'http://localhost:1028';
+
+const socket = io(APP_URL_BE);
 
 const Chat = ({ currentUser, recipient }) => {
     const [messages, setMessages] = useState([]);
@@ -11,7 +13,7 @@ const Chat = ({ currentUser, recipient }) => {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/messages/${currentUser}/${recipient}`);
+                const response = await axios.get(`${APP_URL_BE}/api/messages/${currentUser}/${recipient}`);
                 setMessages(response.data);
             } catch (error) {
                 console.error("Error fetching messages:", error);
@@ -37,7 +39,7 @@ const Chat = ({ currentUser, recipient }) => {
     const sendMessage = async () => {
         const message = { sender: currentUser, recipient, content: newMessage };
         try {
-            await axios.post('http://localhost:5000/api/messages/send', message);
+            await axios.post(`${APP_URL_BE}/api/messages/send`, message);
             socket.emit('sendMessage', message);
             setNewMessage('');
         } catch (error) {
@@ -47,7 +49,7 @@ const Chat = ({ currentUser, recipient }) => {
 
     const clearMessages = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/messages/${currentUser}/${recipient}`);
+            await axios.delete(`${APP_URL_BE}/api/messages/${currentUser}/${recipient}`);
             setMessages([]);
         } catch (error) {
             console.error("Error clearing messages:", error);
